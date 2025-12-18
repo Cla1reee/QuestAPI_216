@@ -1,12 +1,6 @@
 package com.prak12.repositori
 
-import com.prak12.apiservice.ServiceApiSiswa
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.kotlinx.serialization.asConverterFactory
-import kotlinx.serialization.json.Json
-import okhttp3.MediaType.Companion.toMediaType
+
 
 interface ContainerApp {
     val repositoryDataSiswa: RepositoryDataSiswa
@@ -21,6 +15,19 @@ class DefaultContainerApp : ContainerApp{
 
     val klien = OkHttpClient.Builder()
         .addInterceptor(logging)
+        .build()
+
+    private val retrofit: Retrofit = Retrofit.Builder()
+        .baseUrl(baseurl)
+        .client(klien)
+        .addConverterFactory(
+            Json {
+                ignoreUnknownKeys = true
+                prettyPrint = true
+                isLenient = true
+            }.asConverterFactory("application/json".toMediaType())
+        )
+        .client(klien)
         .build()
 
 }
