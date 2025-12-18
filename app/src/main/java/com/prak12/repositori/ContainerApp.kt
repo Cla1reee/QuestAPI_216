@@ -13,20 +13,19 @@ interface ContainerApp {
     val repositoryDataSiswa: RepositoryDataSiswa
 }
 
-class DefaultContainerApp : ContainerApp{
-    private val baseurl = "http://10.0.2.2/umyTI"
+class DefaultContainerApp : ContainerApp {
+    private val baseurl = "http://10.0.2.2/umyTI/"
 
-    val logging = HttpLoggingInterceptor().apply {
+    private val logging = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
 
-    val klien = OkHttpClient.Builder()
+    private val klien = OkHttpClient.Builder()
         .addInterceptor(logging)
         .build()
 
     private val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(baseurl)
-        .client(klien)
         .addConverterFactory(
             Json {
                 ignoreUnknownKeys = true
@@ -42,7 +41,7 @@ class DefaultContainerApp : ContainerApp{
     }
 
     override val repositoryDataSiswa: RepositoryDataSiswa by lazy {
-        JaringanRepositoryDataSiswa(retrofitService) }
+        JaringanRepositoryDataSiswa(retrofitService)
     }
 }
 
@@ -51,6 +50,6 @@ class AplikasiDataSiswa : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        this.container = DefaultContainerApp()
+        container = DefaultContainerApp()
     }
 }
