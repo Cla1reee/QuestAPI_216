@@ -1,5 +1,6 @@
 package com.prak12.modeldata
 
+import androidx.room.Entity
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -9,7 +10,6 @@ data class DataSiswa(
     val alamat: String,
     val telpon: String
 )
-
 data class UIStateSiswa(
     val detailSiswa: DetailSiswa = DetailSiswa(),
     val isEntryValid: Boolean = false
