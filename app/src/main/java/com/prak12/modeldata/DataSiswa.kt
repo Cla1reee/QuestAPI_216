@@ -1,6 +1,5 @@
 package com.prak12.modeldata
 
-import androidx.room.Entity
 import kotlinx.serialization.Serializable
 
 @Serializable
