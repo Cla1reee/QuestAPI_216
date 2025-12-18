@@ -20,5 +20,7 @@ class DefaultContainerApp : ContainerApp{
     }
 
     val klien = OkHttpClient.Builder()
+        .addInterceptor(logging)
+        .build()
 
 }
