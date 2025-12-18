@@ -1,5 +1,6 @@
 package com.prak12.repositori
 
+import android.app.Application
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.prak12.apiservice.ServiceApiSiswa
 import kotlinx.serialization.json.Json
@@ -36,8 +37,20 @@ class DefaultContainerApp : ContainerApp{
         .client(klien)
         .build()
 
-    private val retrofitService : ServiceApiSiswa by lazy {
+    private val retrofitService: ServiceApiSiswa by lazy {
         retrofit.create(ServiceApiSiswa::class.java)
     }
 
+    override val repositoryDataSiswa: RepositoryDataSiswa by lazy {
+        JaringanRepositoryDataSiswa(retrofitService) }
+    }
+}
+
+class AplikasiDataSiswa : Application() {
+    lateinit var container: ContainerApp
+
+    override fun onCreate() {
+        super.onCreate()
+        this.container = DefaultContainerApp()
+    }
 }
